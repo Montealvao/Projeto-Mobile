@@ -34,7 +34,7 @@ export default function SignIn() {
             />
           </View>
 
-          <Link href="/(tabs)/profile">
+          <Link href="/(tabs)/home">
             <TouchableOpacity className="w-full bg-blue-600 hover:bg-blue-700 p-3 rounded-lg flex items-center justify-center">
               <Text className="text-white font-bold">Continuar</Text>
             </TouchableOpacity>
