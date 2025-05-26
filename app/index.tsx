@@ -1,8 +1,35 @@
 import { FontAwesome6 } from "@expo/vector-icons";
 import { Link } from "expo-router";
+import { useEffect, useState } from "react";
 import { Text, TextInput, TouchableOpacity, View } from "react-native";
+import { getDocs, collection, getFirestore, query, where } from "firebase/firestore"
+import { db } from "@/firebase.config"
 
 export default function Index() {
+ const [tenant, setTenant] = useState<string | null>(null);
+
+  useEffect(() => {
+    async function Teste() {
+      const q = query(collection(db, "usuarios"))
+      const snapshot = await getDocs(q)
+      snapshot.forEach((doc) => {
+        const data = doc.data().tenant;
+        setTenant(data);
+      });
+
+
+      const qt = query(collection(db, "escolas"), where("tenant" , "==", tenant))
+      const snapshot2 = await getDocs(qt)
+      snapshot2.forEach((doc) => {
+        console.log(doc.data());
+      })
+    }
+
+    Teste()
+  }, [])
+  console.log("Tenant:", tenant);
+
+
   return (
     <View className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center p-4">
       <View className="w-full max-w-md bg-white p-6 rounded-md border border-gray-300 space-y-6">
