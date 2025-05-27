@@ -1,34 +1,29 @@
 import { FontAwesome6 } from "@expo/vector-icons";
-import { Link } from "expo-router";
-import { useEffect, useState } from "react";
-import { Text, TextInput, TouchableOpacity, View } from "react-native";
-import { getDocs, collection, getFirestore, query, where } from "firebase/firestore"
-import { db } from "@/firebase.config"
+import { router } from "expo-router";
+import { useState } from "react";
+import { Alert, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { doc, getDoc } from "firebase/firestore"
+import { db } from "../firebase.config"
 
 export default function Index() {
- const [tenant, setTenant] = useState<string | null>(null);
+  const [tenant, setTenant] = useState('');
 
-  useEffect(() => {
-    async function Teste() {
-      const q = query(collection(db, "usuarios"))
-      const snapshot = await getDocs(q)
-      snapshot.forEach((doc) => {
-        const data = doc.data().tenant;
-        setTenant(data);
-      });
+  async function verificarEsola() {
+    if(!tenant.trim()) return;
+    
+    console.log('DB:', db);
 
+    const docRef = doc(db, 'escolas', tenant);
+    const docSnap = await getDoc(docRef);
 
-      const qt = query(collection(db, "escolas"), where("tenant" , "==", tenant))
-      const snapshot2 = await getDocs(qt)
-      snapshot2.forEach((doc) => {
-        console.log(doc.data());
-      })
+    console.log('docSnap', docSnap)
+
+    if (docSnap.exists()) {
+      router.push(`/${tenant}/signIn`);
+    } else {
+      Alert.alert('Escola não encontrada');
     }
-
-    Teste()
-  }, [])
-  console.log("Tenant:", tenant);
-
+  }
 
   return (
     <View className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center p-4">
@@ -48,14 +43,14 @@ export default function Index() {
             <TextInput
               placeholder="Digite o código da sua escola"
               className="tracking-wider border text-gray-400 border-gray-300 rounded-lg p-3"
+              value={tenant}
+              onChangeText={setTenant}
             />
           </View>
 
-          <Link href="/signIn">
-            <TouchableOpacity className="w-full bg-blue-600 hover:bg-blue-700 p-3 rounded-lg flex items-center justify-center">
-              <Text className="text-white font-bold">Continuar</Text>
-            </TouchableOpacity>
-          </Link>
+          <TouchableOpacity className="w-full bg-blue-600 hover:bg-blue-700 p-3 rounded-lg flex items-center justify-center" onPress={verificarEsola}>
+            <Text className="text-white font-bold">Continuar</Text>
+          </TouchableOpacity>
 
           <View>
             <Text className="text-xs text-gray-500 text-center">Não possui o código? Entre em contato com a secretaria da escola.</Text>

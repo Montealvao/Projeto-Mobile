@@ -1,8 +1,39 @@
+import { db } from "../../firebase.config";
 import { FontAwesome6 } from "@expo/vector-icons";
-import { Link } from "expo-router";
+import { Link, router, useLocalSearchParams } from "expo-router";
+import { collection, doc, getDocs, query, where } from "firebase/firestore";
+import { useState } from "react";
 import { Text, TextInput, TouchableOpacity, View } from "react-native";
 
 export default function SignIn() {
+  const { escolaId } = useLocalSearchParams()
+  const [cpf, setCpf] = useState('');
+  const [senha, setSenha] = useState('');
+
+  async function handleSignI() {
+    const q = query(collection(db, 'usuarios'), where('cpf', '==', cpf), where('senha', '==', senha))
+    const snapshot = await getDocs(q);
+    console.log('snapshot', snapshot)
+    
+    if (snapshot.empty) {
+      alert('CPF ou senha inválidos');
+      return;
+    }
+
+    const user = snapshot.docs[0].data();
+
+    console.log('user', user)
+
+    if (user.id_escola !== escolaId) {
+      alert('Usuário não pertence a esta escola');
+      return;
+    }
+    router.push("/(tabs-aluno)/home");
+
+
+    
+  }
+
   return (
     <View className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center p-4">
       <View className="w-full max-w-md bg-white p-6 rounded-md border border-gray-300 space-y-6">
@@ -11,7 +42,7 @@ export default function SignIn() {
             <FontAwesome6 name="graduation-cap" size={24} color="white" />
           </View>
           <Text className="text-2xl font-bold text-gray-800 text-center">Fazer Login</Text>
-          <Text className="text-gray-600 text-center">Escola: Colégio São Francisco</Text>
+          <Text className="text-gray-600 text-center">{}</Text>
         </View>
         <View className="space-y-6">
           <View className="space-y-2">
@@ -21,6 +52,8 @@ export default function SignIn() {
             <TextInput
               placeholder="000.000.000-00"
               className="tracking-wider border text-gray-400 border-gray-300 rounded-lg p-3"
+              value={cpf}
+              onChangeText={setCpf}
             />
           </View>
 
@@ -31,14 +64,15 @@ export default function SignIn() {
             <TextInput
               placeholder="Digite sua senha"
               className="tracking-wider border text-gray-400 border-gray-300 rounded-lg p-3"
+              value={senha}
+              onChangeText={setSenha}
             />
           </View>
 
-          <Link href="/(tabs)/home">
-            <TouchableOpacity className="w-full bg-blue-600 hover:bg-blue-700 p-3 rounded-lg flex items-center justify-center">
-              <Text className="text-white font-bold">Continuar</Text>
-            </TouchableOpacity>
-          </Link>
+          <TouchableOpacity className="w-full bg-blue-600 hover:bg-blue-700 p-3 rounded-lg flex items-center justify-center" onPress={handleSignI}>
+            <Text className="text-white font-bold">Continuar</Text>
+          </TouchableOpacity>
+
 
           <View className="flex flex-row justify-between">
             <Link href="/">
