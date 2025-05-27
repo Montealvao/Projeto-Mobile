@@ -1,20 +1,41 @@
 import { db } from "../../firebase.config";
 import { FontAwesome6 } from "@expo/vector-icons";
 import { Link, router, useLocalSearchParams } from "expo-router";
-import { collection, doc, getDocs, query, where } from "firebase/firestore";
-import { useState } from "react";
+import { collection, doc, getDoc, getDocs, query, where } from "firebase/firestore";
+import { useEffect, useState } from "react";
 import { Text, TextInput, TouchableOpacity, View } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function SignIn() {
   const { escolaId } = useLocalSearchParams()
   const [cpf, setCpf] = useState('');
   const [senha, setSenha] = useState('');
+  const [nomeEscola, setNomeEscola] = useState(null);
+
+
+  useEffect(() => {
+    async function fetchSchool() {
+      const escolaIdStr = Array.isArray(escolaId) ? escolaId[0] : escolaId;
+      if (!escolaIdStr) return;
+
+      const school = doc(db, 'escolas', escolaIdStr);
+      const schoolSnapshot = await getDoc(school);
+      if (schoolSnapshot.exists()) {
+        const schoolData = schoolSnapshot.data();
+        setNomeEscola(schoolData?.nome || 'Escola não encontrada');
+      }
+    }
+    console.log('escolaId', escolaId)
+    fetchSchool();
+  }, []);
+
 
   async function handleSignI() {
+    const escolaIdStr = Array.isArray(escolaId) ? escolaId[0] : escolaId;
     const q = query(collection(db, 'usuarios'), where('cpf', '==', cpf), where('senha', '==', senha))
     const snapshot = await getDocs(q);
     console.log('snapshot', snapshot)
-    
+
     if (snapshot.empty) {
       alert('CPF ou senha inválidos');
       return;
@@ -24,14 +45,14 @@ export default function SignIn() {
 
     console.log('user', user)
 
-    if (user.id_escola !== escolaId) {
+    if (user.tenant !== escolaId) {
       alert('Usuário não pertence a esta escola');
       return;
     }
+
+    // await AsyncStorage.setItem('token', JSON.stringify(user));
+
     router.push("/(tabs-aluno)/home");
-
-
-    
   }
 
   return (
@@ -42,7 +63,7 @@ export default function SignIn() {
             <FontAwesome6 name="graduation-cap" size={24} color="white" />
           </View>
           <Text className="text-2xl font-bold text-gray-800 text-center">Fazer Login</Text>
-          <Text className="text-gray-600 text-center">{}</Text>
+          <Text className="text-gray-600 text-center">{nomeEscola}</Text>
         </View>
         <View className="space-y-6">
           <View className="space-y-2">

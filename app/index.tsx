@@ -33,7 +33,7 @@ export default function Index() {
             <FontAwesome6 name="graduation-cap" size={24} color="white" />
           </View>
           <Text className="text-2xl font-bold text-gray-800 text-center">EduCady</Text>
-          <Text className="text-gray-600 text-">Conectando escola, família e educação</Text>
+          <Text className="text-gray-600 text-center">Conectando escola, família e educação</Text>
         </View>
         <View className="space-y-6">
           <View className="space-y-2">
