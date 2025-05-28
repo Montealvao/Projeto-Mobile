@@ -1,5 +1,5 @@
 import { View, Text, ScrollView } from "react-native";
-import { Card, CardTitle, CardDescription } from '../../components/chat/card.tsx';
+import { Card, CardTitle, CardDescription } from '../../components/chat/card';
 
 export default function Chat() {
     return (

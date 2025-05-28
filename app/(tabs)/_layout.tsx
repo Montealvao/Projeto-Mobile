@@ -20,7 +20,7 @@ export default function RootLayout() {
                 options={{
                     title: 'Início',
                     tabBarIcon: ({ color }) => (
-                        <View className='flex-1 justify-center items-center'>
+                        <View className='flex-1 flex-col justify-center items-center'>
                             <MaterialIcons name='home' size={20} color={color} />
                         </View>
                     ),
@@ -32,8 +32,8 @@ export default function RootLayout() {
                 options={{
                     title: 'Matérias',
                     tabBarIcon: ({ color }) => (
-                        <View className='flex-1 justify-center items-center'>
-                            <MaterialCommunityIcons name="comment-processing-outline" size={24} color="black" />
+                        <View className='flex-1 flex-col justify-center items-center'>
+                            <MaterialCommunityIcons name="book" size={20} color={color} />
                         </View>
                     ),
                 }}
@@ -44,8 +44,8 @@ export default function RootLayout() {
                 options={{
                     title: 'Chat',
                     tabBarIcon: ({ color }) => (
-                        <View className='flex-1 justify-center items-center'>
-                            <MaterialCommunityIcons name="comment-processing-outline" size={24} color="black" />
+                        <View className='flex-1 flex-col justify-center items-center'>
+                            <MaterialCommunityIcons name="comment" size={20} color={color} />
                         </View>
                     ),
                 }}
