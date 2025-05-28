@@ -1,35 +1,35 @@
-import { Text, TouchableOpacity, View } from "react-native";
+import { Text, TextInput, TouchableOpacity, View } from "react-native";
 
-export default function Profile() {
+export default function ParentProfile() {
     return (
         <View className="p-4 pb-20">
             <View className="mb-6">
                 <Text className="text-2xl font-bold text-gray-800">Meu Perfil</Text>
             </View>
 
-            <View className="mb-6 bg-white p-6 rounded-md border border-gray-300 space-y-6">
+            <View className="mb-6  bg-white p-6 rounded-md border border-gray-300 space-y-6">
                 <View className="mb-6">
                     <View className="w-24 h-24 bg-blue-600 rounded-full mx-auto mb-4 flex items-center justify-center">
                         <Text className="text-2xl font-bold text-white">
                             MS
                         </Text>
                     </View>
-                    <Text className="text-xl font-bold text-center text-gray-800">Maria Silva Santos</Text>
-                    <Text className="text-gray-600 text-center">Aluna</Text>
+                    <Text className="text-xl font-bold text-center text-gray-800">Carlos Santos</Text>
+                    <Text className="text-gray-600 text-center text-base">Responsável</Text>
                 </View>
 
                 <View className="space-y-4">
-                    <View className="flex flex-row justify-between">
-                        <Text className="text-gray-600">Turma/Área:</Text>
-                        <Text className="font-semibold">9° Ano B</Text>
+                    <View className="flex flex-row justify-between ">
+                        <Text className="text-gray-600 text-base">Turma/Área:</Text>
+                        <Text className="text-base">Pai da Maria</Text>
                     </View>
                     <View className="flex flex-row justify-between">
-                        <Text className="text-gray-600">ID:</Text>
-                        <Text className="font-semibold">2024001</Text>
+                        <Text className="text-gray-600 text-base">ID:</Text>
+                        <Text className="text-base">RESP001</Text>
                     </View>
                     <View className="flex flex-row justify-between">
-                        <Text className="text-gray-600">Email:</Text>
-                        <Text className="font-semibold">maria.santos@email.com</Text>
+                        <Text className="text-gray-600 text-base">Email:</Text>
+                        <Text className="text-base">carlos.santos@email.com</Text>
                     </View>
                 </View>
 

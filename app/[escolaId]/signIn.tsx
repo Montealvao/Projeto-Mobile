@@ -22,7 +22,7 @@ export default function SignIn() {
       const schoolSnapshot = await getDoc(school);
       if (schoolSnapshot.exists()) {
         const schoolData = schoolSnapshot.data();
-        setNomeEscola(schoolData?.nome || 'Escola não encontrada');
+        setNomeEscola(schoolData.nome);
       }
     }
     console.log('escolaId', escolaId)

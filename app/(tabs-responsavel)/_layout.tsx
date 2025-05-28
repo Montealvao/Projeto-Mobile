@@ -1,4 +1,4 @@
-import { Foundation, MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons'
+import { AntDesign, Foundation, Ionicons, MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons'
 import { Tabs } from 'expo-router'
 import { View } from 'react-native'
 
@@ -13,7 +13,7 @@ export default function RootLayout() {
             },
         }}>
             <Tabs.Screen
-                name='home'
+                name='home3'
                 options={{
                     title: 'Início',
                     tabBarIcon: ({ color }) => (
@@ -25,19 +25,31 @@ export default function RootLayout() {
             />,
 
             <Tabs.Screen
-                name='subjects'
+                name='grades'
                 options={{
-                    title: 'Matérias',
+                    title: 'Notas',
                     tabBarIcon: ({ color }) => (
                         <View className='flex-1 justify-center items-center'>
-                            <MaterialCommunityIcons name="bookshelf" size={24} color="black" />
+                            <AntDesign name="barschart" size={24} color="black" />
                         </View>
                     ),
                 }}
             />,
-           
+
             <Tabs.Screen
-                name='chat'
+                name='schedule'
+                options={{
+                    title: 'Horários',
+                    tabBarIcon: ({ color }) => (
+                        <View className='flex-1 justify-center items-center'>
+                            <Ionicons name="calendar-number-outline" size={24} color="black" />
+                        </View>
+                    ),
+                }}
+            />,
+
+            <Tabs.Screen
+                name='chat3'
                 options={{
                     title: 'Chat',
                     tabBarIcon: ({ color }) => (
@@ -47,9 +59,9 @@ export default function RootLayout() {
                     ),
                 }}
             />,
-            
+
             <Tabs.Screen
-                name='announcements'
+                name='announcements3'
                 options={{
                     title: 'Avisos',
                     tabBarIcon: ({ color }) => (
@@ -61,7 +73,7 @@ export default function RootLayout() {
             />,
 
             <Tabs.Screen
-                name='profile'
+                name='profile3'
                 options={{
                     title: 'Perfil',
                     tabBarIcon: ({ color }) => (

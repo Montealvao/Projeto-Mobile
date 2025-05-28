@@ -13,7 +13,7 @@ export default function RootLayout() {
             },
         }}>
             <Tabs.Screen
-                name='home'
+                name='home2'
                 options={{
                     title: 'Início',
                     tabBarIcon: ({ color }) => (
@@ -25,9 +25,9 @@ export default function RootLayout() {
             />,
 
             <Tabs.Screen
-                name='subjects'
+                name='class'
                 options={{
-                    title: 'Matérias',
+                    title: 'Turmas',
                     tabBarIcon: ({ color }) => (
                         <View className='flex-1 justify-center items-center'>
                             <MaterialCommunityIcons name="bookshelf" size={24} color="black" />
@@ -37,7 +37,7 @@ export default function RootLayout() {
             />,
            
             <Tabs.Screen
-                name='chat'
+                name='chat2'
                 options={{
                     title: 'Chat',
                     tabBarIcon: ({ color }) => (
@@ -49,7 +49,7 @@ export default function RootLayout() {
             />,
             
             <Tabs.Screen
-                name='announcements'
+                name='announcements2'
                 options={{
                     title: 'Avisos',
                     tabBarIcon: ({ color }) => (
@@ -61,7 +61,7 @@ export default function RootLayout() {
             />,
 
             <Tabs.Screen
-                name='profile'
+                name='profile2'
                 options={{
                     title: 'Perfil',
                     tabBarIcon: ({ color }) => (

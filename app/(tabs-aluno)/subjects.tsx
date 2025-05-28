@@ -16,7 +16,7 @@ export default function Subjects() {
         <View className="p-4 pb-20">
             <View className="mb-6">
                 <Text className="text-2xl font-bold text-gray-800">Minhas Matérias</Text>
-                <Text className="text-gray-600">9º Ano B</Text>
+                <Text className="text-gray-600 text-base">9º Ano B</Text>
             </View>
 
             <div className="space-y-4">
