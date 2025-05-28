@@ -1,4 +1,3 @@
-// components/ui/card.tsx
 import { View, Text, ViewProps } from 'react-native';
 
 export function Card({ className = '', ...props }: ViewProps & { className?: string }) {
