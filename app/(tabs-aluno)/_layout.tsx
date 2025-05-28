@@ -30,7 +30,7 @@ export default function RootLayout() {
                     title: 'Matérias',
                     tabBarIcon: ({ color }) => (
                         <View className='flex-1 justify-center items-center'>
-                            <MaterialCommunityIcons name="comment-processing-outline" size={24} color="black" />
+                            <MaterialCommunityIcons name="bookshelf" size={24} color="black" />
                         </View>
                     ),
                 }}

@@ -34,7 +34,7 @@ export default function SignIn() {
     const escolaIdStr = Array.isArray(escolaId) ? escolaId[0] : escolaId;
     const q = query(collection(db, 'usuarios'), where('cpf', '==', cpf), where('senha', '==', senha))
     const snapshot = await getDocs(q);
-    console.log('snapshot', snapshot)
+    console.log('snapshot', snapshot.docs[0].data())
 
     if (snapshot.empty) {
       alert('CPF ou senha inválidos');
@@ -45,14 +45,16 @@ export default function SignIn() {
 
     console.log('user', user)
 
-    if (user.tenant !== escolaId) {
+    if (user.tenant !== escolaIdStr) {
       alert('Usuário não pertence a esta escola');
       return;
     }
 
-    // await AsyncStorage.setItem('token', JSON.stringify(user));
+    const { id, id_aluno } = user
 
-    router.push("/(tabs-aluno)/home");
+    await AsyncStorage.setItem('token', JSON.stringify({ id, id_aluno }));
+
+    router.push("/home");
   }
 
   return (
