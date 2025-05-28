@@ -3,15 +3,18 @@ import { Tabs } from 'expo-router'
 import { View } from 'react-native'
 
 export default function RootLayout() {
+
     return (
-        <Tabs screenOptions={{
-            headerShown: false,
-            tabBarActiveTintColor: 'orange',
-            tabBarInactiveTintColor: 'gray',
-            tabBarStyle: {
-                height: 60,
-            },
-        }}>
+        <Tabs
+            screenOptions={{
+                headerShown: false,
+                tabBarActiveTintColor: 'orange',
+                tabBarInactiveTintColor: 'gray',
+                tabBarStyle: {
+                    height: 60,
+                },
+            }}
+        >
             <Tabs.Screen
                 name='home'
                 options={{
@@ -60,5 +63,5 @@ export default function RootLayout() {
                 }}
             />
         </Tabs>
-    )
+    );
 }

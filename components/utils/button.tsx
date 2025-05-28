@@ -1,6 +1,5 @@
-// components/ui/button.tsx
 import { Pressable, Text, PressableProps } from 'react-native';
-import { cn } from '@/lib/utils'; // <-- Aqui está a importação do utilitário
+import { cn } from '@/lib/utils';
 
 type Variant = 'default' | 'outline' | 'accent' | 'ghost' | 'destructive';
 
@@ -17,7 +16,8 @@ export function Button({
     variant = 'default',
     disabled = false,
     ...props
-}: ButtonProps) {
+} : ButtonProps) {
+
     const baseStyle = 'px-4 py-2 rounded-md items-center justify-center';
     const disabledStyle = 'opacity-50';
 
@@ -28,7 +28,7 @@ export function Button({
         ghost: 'bg-transparent text-light-100',
         destructive: 'bg-red-600 text-white',
     };
-
+    
     return (
         <Pressable
             className={cn(baseStyle, variants[variant], disabled && disabledStyle, className)}
