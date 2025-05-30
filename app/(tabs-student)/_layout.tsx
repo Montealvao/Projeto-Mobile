@@ -13,7 +13,7 @@ export default function RootLayout() {
             },
         }}>
             <Tabs.Screen
-                name='home'
+                name='home-student'
                 options={{
                     title: 'Início',
                     tabBarIcon: ({ color }) => (
@@ -37,7 +37,7 @@ export default function RootLayout() {
             />,
            
             <Tabs.Screen
-                name='chat'
+                name='chat-student'
                 options={{
                     title: 'Chat',
                     tabBarIcon: ({ color }) => (
@@ -49,7 +49,7 @@ export default function RootLayout() {
             />,
             
             <Tabs.Screen
-                name='announcements'
+                name='announcements-student'
                 options={{
                     title: 'Avisos',
                     tabBarIcon: ({ color }) => (
@@ -61,7 +61,7 @@ export default function RootLayout() {
             />,
 
             <Tabs.Screen
-                name='profile'
+                name='profile-student'
                 options={{
                     title: 'Perfil',
                     tabBarIcon: ({ color }) => (

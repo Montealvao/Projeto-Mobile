@@ -1,11 +1,23 @@
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { ScrollView, Text, View } from "react-native";
 
 export default function Home() {
+    const getData = async () => {
+        try {
+            const jsonValue = await AsyncStorage.getItem('token');
+            console.log(jsonValue)
+            return jsonValue != null ? JSON.parse(jsonValue) : null;
+        } catch (e) {
+            // error reading value
+        }
+
+    };
+
     return (
         <View className="flex-1 p-4 gap-6 bg-white">
 
             <View className="flex gap-1">
-                <Text className="text-2xl font-semibold">Olá, Maria!</Text>
+                <Text className="text-2xl font-semibold">Olá,</Text>
                 <Text className="text-black/50 text-base">Bem-vindo(a) ao EduConnect</Text>
             </View>
 

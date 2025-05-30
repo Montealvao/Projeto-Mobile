@@ -7,32 +7,32 @@ import { Text, TextInput, TouchableOpacity, View } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function SignIn() {
-  const { escolaId } = useLocalSearchParams()
+  const { school_id } = useLocalSearchParams()
   const [cpf, setCpf] = useState('');
-  const [senha, setSenha] = useState('');
-  const [nomeEscola, setNomeEscola] = useState(null);
+  const [password, setPassword] = useState('');
+  const [schoolName, setSchoolName] = useState(null);
 
 
   useEffect(() => {
     async function fetchSchool() {
-      const escolaIdStr = Array.isArray(escolaId) ? escolaId[0] : escolaId;
-      if (!escolaIdStr) return;
+      const school_idStr = Array.isArray(school_id) ? school_id[0] : school_id;
+      if (!school_idStr) return;
 
-      const school = doc(db, 'escolas', escolaIdStr);
+      const school = doc(db, 'escolas', school_idStr);
       const schoolSnapshot = await getDoc(school);
       if (schoolSnapshot.exists()) {
         const schoolData = schoolSnapshot.data();
-        setNomeEscola(schoolData.nome);
+        setSchoolName(schoolData.nome);
       }
     }
-    console.log('escolaId', escolaId)
+    console.log('school_id', school_id)
     fetchSchool();
   }, []);
 
 
-  async function handleSignI() {
-    const escolaIdStr = Array.isArray(escolaId) ? escolaId[0] : escolaId;
-    const q = query(collection(db, 'usuarios'), where('cpf', '==', cpf), where('senha', '==', senha))
+  async function handleSignIn() {
+    const school_idStr = Array.isArray(school_id) ? school_id[0] : school_id;
+    const q = query(collection(db, 'usuarios'), where('cpf', '==', cpf), where('senha', '==', password))
     const snapshot = await getDocs(q);
     console.log('snapshot', snapshot.docs[0].data())
 
@@ -45,7 +45,7 @@ export default function SignIn() {
 
     console.log('user', user)
 
-    if (user.tenant !== escolaIdStr) {
+    if (user.tenant !== school_idStr) {
       alert('Usuário não pertence a esta escola');
       return;
     }
@@ -53,8 +53,6 @@ export default function SignIn() {
     const { id, id_aluno } = user
 
     await AsyncStorage.setItem('token', JSON.stringify({ id, id_aluno }));
-
-    router.push("/home");
   }
 
   return (
@@ -65,7 +63,7 @@ export default function SignIn() {
             <FontAwesome6 name="graduation-cap" size={24} color="white" />
           </View>
           <Text className="text-2xl font-bold text-gray-800 text-center">Fazer Login</Text>
-          <Text className="text-gray-600 text-center">{nomeEscola}</Text>
+          <Text className="text-gray-600 text-center">{schoolName}</Text>
         </View>
         <View className="space-y-6">
           <View className="space-y-2">
@@ -87,12 +85,12 @@ export default function SignIn() {
             <TextInput
               placeholder="Digite sua senha"
               className="tracking-wider border text-gray-400 border-gray-300 rounded-lg p-3"
-              value={senha}
-              onChangeText={setSenha}
+              value={password}
+              onChangeText={setPassword}
             />
           </View>
 
-          <TouchableOpacity className="w-full bg-blue-600 hover:bg-blue-700 p-3 rounded-lg flex items-center justify-center" onPress={handleSignI}>
+          <TouchableOpacity className="w-full bg-blue-600 hover:bg-blue-700 p-3 rounded-lg flex items-center justify-center" onPress={handleSignIn}>
             <Text className="text-white font-bold">Continuar</Text>
           </TouchableOpacity>
 

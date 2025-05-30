@@ -13,7 +13,7 @@ export default function RootLayout() {
             },
         }}>
             <Tabs.Screen
-                name='home3'
+                name='home-parent'
                 options={{
                     title: 'Início',
                     tabBarIcon: ({ color }) => (
@@ -25,7 +25,7 @@ export default function RootLayout() {
             />,
 
             <Tabs.Screen
-                name='grades'
+                name='grades-parent'
                 options={{
                     title: 'Notas',
                     tabBarIcon: ({ color }) => (
@@ -49,7 +49,7 @@ export default function RootLayout() {
             />,
 
             <Tabs.Screen
-                name='chat3'
+                name='chat-parent'
                 options={{
                     title: 'Chat',
                     tabBarIcon: ({ color }) => (
@@ -61,7 +61,7 @@ export default function RootLayout() {
             />,
 
             <Tabs.Screen
-                name='announcements3'
+                name='announcements-parent'
                 options={{
                     title: 'Avisos',
                     tabBarIcon: ({ color }) => (
@@ -73,7 +73,7 @@ export default function RootLayout() {
             />,
 
             <Tabs.Screen
-                name='profile3'
+                name='profile-parent'
                 options={{
                     title: 'Perfil',
                     tabBarIcon: ({ color }) => (
