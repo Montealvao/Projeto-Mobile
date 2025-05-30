@@ -8,15 +8,15 @@ import { db } from "../firebase.config"
 export default function Index() {
   const [tenant, setTenant] = useState('');
 
-  async function verificarEsola() {
+  async function CheckSchool() {
     if(!tenant.trim()) return;
     
     console.log('DB:', db);
 
-    const docRef = doc(db, 'escolas', tenant);
+    const docRef = doc(db, 'schools', tenant);
     const docSnap = await getDoc(docRef);
 
-    console.log('docSnap', docSnap)
+    console.log('docSnap', docSnap.id)
 
     if (docSnap.exists()) {
       router.push(`/${tenant}/signIn`);
@@ -48,7 +48,7 @@ export default function Index() {
             />
           </View>
 
-          <TouchableOpacity className="w-full bg-blue-600 hover:bg-blue-700 p-3 rounded-lg flex items-center justify-center" onPress={verificarEsola}>
+          <TouchableOpacity className="w-full bg-blue-600 hover:bg-blue-700 p-3 rounded-lg flex items-center justify-center" onPress={CheckSchool}>
             <Text className="text-white font-bold">Continuar</Text>
           </TouchableOpacity>
 

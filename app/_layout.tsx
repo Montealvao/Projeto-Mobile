@@ -17,7 +17,11 @@ function AuthGate({ children }: { children: React.ReactNode }) {
     checkAuth()
   }, []);
 
-  if (loading) return null
+  if (loading) {
+    return (
+      <Stack screenOptions={{ headerShown: false }} />
+    );
+  }
 
   return <>{children}</>
 }
@@ -30,6 +34,6 @@ export default function RootLayout() {
         <Stack.Screen name="(tabs-professor)" />
         <Stack.Screen name="(tabs-gestor)" />
       </Stack>
-    </AuthGate>
+    // </AuthGate>
   );
 }

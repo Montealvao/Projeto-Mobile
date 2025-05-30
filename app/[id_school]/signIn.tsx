@@ -7,7 +7,7 @@ import { Text, TextInput, TouchableOpacity, View } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function SignIn() {
-  const { school_id } = useLocalSearchParams()
+  const { id_school } = useLocalSearchParams()
   const [cpf, setCpf] = useState('');
   const [password, setPassword] = useState('');
   const [schoolName, setSchoolName] = useState(null);
@@ -15,24 +15,24 @@ export default function SignIn() {
 
   useEffect(() => {
     async function fetchSchool() {
-      const school_idStr = Array.isArray(school_id) ? school_id[0] : school_id;
-      if (!school_idStr) return;
+      const id_schoolStr = Array.isArray(id_school) ? id_school[0] : id_school;
+      if (!id_schoolStr) return;
 
-      const school = doc(db, 'escolas', school_idStr);
+      const school = doc(db, 'schools', id_school[0]);
       const schoolSnapshot = await getDoc(school);
       if (schoolSnapshot.exists()) {
         const schoolData = schoolSnapshot.data();
         setSchoolName(schoolData.nome);
       }
     }
-    console.log('school_id', school_id)
+    console.log('id_school', id_school)
     fetchSchool();
   }, []);
 
 
   async function handleSignIn() {
-    const school_idStr = Array.isArray(school_id) ? school_id[0] : school_id;
-    const q = query(collection(db, 'usuarios'), where('cpf', '==', cpf), where('senha', '==', password))
+    const id_schoolStr = Array.isArray(id_school) ? id_school[0] : id_school;
+    const q = query(collection(db, 'users'), where('cpf', '==', cpf), where('password', '==', password))
     const snapshot = await getDocs(q);
     console.log('snapshot', snapshot.docs[0].data())
 
@@ -45,14 +45,29 @@ export default function SignIn() {
 
     console.log('user', user)
 
-    if (user.tenant !== school_idStr) {
+    if (user.tenant !== id_schoolStr) {
       alert('Usuário não pertence a esta escola');
       return;
     }
 
-    const { id, id_aluno } = user
+    const { id_student, id_parent, id_teacher, tenant } = user
+    
+    console.log("tenant do user: ", tenant)
 
-    await AsyncStorage.setItem('token', JSON.stringify({ id, id_aluno }));
+    await AsyncStorage.setItem('token', tenant);
+    
+    if (user.id_parent) {
+      router.push("/home-parent")
+    }
+
+    if (user.id_student) {
+      router.push("/home-student")
+    }
+
+    if (user.id_teacher) {
+      router.push("/home-teacher")
+    }
+
   }
 
   return (
