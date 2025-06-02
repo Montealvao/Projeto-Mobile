@@ -1,4 +1,4 @@
-import useSchool from "@/hooks/useSchool";
+import useSchool from "@/hooks/useUserInfo";
 import { ScrollView, Text, View } from "react-native";
 
 export default function Home() {

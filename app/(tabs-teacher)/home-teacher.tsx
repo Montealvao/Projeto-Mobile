@@ -1,4 +1,4 @@
-import useSchool from "@/hooks/useSchool"
+import useSchool from "@/hooks/useUserInfo"
 import { AntDesign, Feather, MaterialCommunityIcons } from "@expo/vector-icons"
 import { ScrollView, Text, TouchableOpacity, View } from "react-native"
 

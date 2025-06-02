@@ -4,7 +4,8 @@ import { Link, router, useLocalSearchParams } from "expo-router";
 import { collection, doc, getDoc, getDocs, query, where } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { Text, TextInput, TouchableOpacity, View } from "react-native";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import * as SecureStore from "expo-secure-store";
+import AsyncStorage from "@react-native-async-storage/async-storage"
 
 export default function SignIn() {
   const { id_school } = useLocalSearchParams()
@@ -17,14 +18,13 @@ export default function SignIn() {
       const id_schoolStr = Array.isArray(id_school) ? id_school[0] : id_school;
       if (!id_schoolStr) return;
 
-      const school = doc(db, 'schools', id_school[0]);
+      const school = doc(db, 'schools', id_schoolStr);
       const schoolSnapshot = await getDoc(school);
       if (schoolSnapshot.exists()) {
         const schoolData = schoolSnapshot.data();
-        setSchoolName(schoolData.nome);
+        setSchoolName(schoolData.name);
       }
     }
-    console.log('id_school', id_school)
     fetchSchool();
   }, []);
 
@@ -55,23 +55,24 @@ export default function SignIn() {
 
     const { id_parent, id_student, id_teacher } = userInfo
 
-    await AsyncStorage.setItem('token', user);
+    await AsyncStorage.setItem("token", user)
 
-    if (userInfo.id_parent) {
+    if (id_parent) {
       router.push("/home-parent")
     }
 
-    if (userInfo.id_student) {
+    if (id_student) {
       router.push("/home-student")
     }
 
-    if (userInfo.id_teacher) {
+    if (id_teacher) {
       router.push("/home-teacher")
     }
 
   }
 
   return (
+    
     <View className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center p-4">
       <View className="w-full max-w-md bg-white p-6 rounded-md border border-gray-300 space-y-6">
         <View className="text-center space-y-4">

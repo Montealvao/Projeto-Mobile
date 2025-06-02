@@ -10,13 +10,9 @@ export default function Index() {
 
   async function CheckSchool() {
     if(!tenant.trim()) return;
-    
-    console.log('DB:', db);
-
+  
     const docRef = doc(db, 'schools', tenant);
     const docSnap = await getDoc(docRef);
-
-    console.log('docSnap', docSnap.id)
 
     if (docSnap.exists()) {
       router.push(`/${tenant}/signIn`);

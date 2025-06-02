@@ -30,7 +30,7 @@ export default function RootLayout() {
                     title: 'Notas',
                     tabBarIcon: ({ color }) => (
                         <View className='flex-1 justify-center items-center'>
-                            <AntDesign name="barschart" size={24} color="black" />
+                            <AntDesign name="barschart" size={24} color={color} />
                         </View>
                     ),
                 }}
@@ -42,7 +42,7 @@ export default function RootLayout() {
                     title: 'Horários',
                     tabBarIcon: ({ color }) => (
                         <View className='flex-1 justify-center items-center'>
-                            <Ionicons name="calendar-number-outline" size={24} color="black" />
+                            <Ionicons name="calendar-number-outline" size={24} color={color} />
                         </View>
                     ),
                 }}
@@ -54,7 +54,7 @@ export default function RootLayout() {
                     title: 'Chat',
                     tabBarIcon: ({ color }) => (
                         <View className='flex-1 justify-center items-center'>
-                            <MaterialCommunityIcons name="comment-processing-outline" size={24} color="black" />
+                            <MaterialCommunityIcons name="comment-processing-outline" size={24} color={color} />
                         </View>
                     ),
                 }}
@@ -66,7 +66,7 @@ export default function RootLayout() {
                     title: 'Avisos',
                     tabBarIcon: ({ color }) => (
                         <View className='flex-1 justify-center items-center'>
-                            <Foundation name="megaphone" size={24} color="black" />
+                            <Foundation name="megaphone" size={24} color={color} />
                         </View>
                     ),
                 }}
