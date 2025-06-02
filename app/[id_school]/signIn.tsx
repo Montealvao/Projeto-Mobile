@@ -12,7 +12,6 @@ export default function SignIn() {
   const [password, setPassword] = useState('');
   const [schoolName, setSchoolName] = useState(null);
 
-
   useEffect(() => {
     async function fetchSchool() {
       const id_schoolStr = Array.isArray(id_school) ? id_school[0] : id_school;
@@ -41,30 +40,32 @@ export default function SignIn() {
       return;
     }
 
-    const user = snapshot.docs[0].data();
+    const tenant = snapshot.docs[0].data().tenant;
+    console.log('tenant', tenant)
 
-    console.log('user', user)
-
-    if (user.tenant !== id_schoolStr) {
+    if (tenant !== id_schoolStr) {
       alert('Usuário não pertence a esta escola');
       return;
     }
 
-    const { id_student, id_parent, id_teacher, tenant } = user
-    
-    console.log("tenant do user: ", tenant)
+    const user = snapshot.docs[0].id
+    console.log("User id: ", user)
 
-    await AsyncStorage.setItem('token', tenant);
-    
-    if (user.id_parent) {
+    const userInfo = snapshot.docs[0].data()
+
+    const { id_parent, id_student, id_teacher } = userInfo
+
+    await AsyncStorage.setItem('token', user);
+
+    if (userInfo.id_parent) {
       router.push("/home-parent")
     }
 
-    if (user.id_student) {
+    if (userInfo.id_student) {
       router.push("/home-student")
     }
 
-    if (user.id_teacher) {
+    if (userInfo.id_teacher) {
       router.push("/home-teacher")
     }
 

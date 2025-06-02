@@ -34,6 +34,6 @@ export default function RootLayout() {
         <Stack.Screen name="(tabs-professor)" />
         <Stack.Screen name="(tabs-gestor)" />
       </Stack>
-    // </AuthGate>
+    </AuthGate>
   );
 }

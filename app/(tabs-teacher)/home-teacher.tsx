@@ -1,7 +1,11 @@
+import useSchool from "@/hooks/useSchool"
 import { AntDesign, Feather, MaterialCommunityIcons } from "@expo/vector-icons"
 import { ScrollView, Text, TouchableOpacity, View } from "react-native"
 
 export default function TeacherHome() {
+
+    const { userData } = useSchool()
+
     const todaySchedule = [
         { time: "07:30", class: "9º A", subject: "Matemática", room: "Sala 15" },
         { time: "08:20", class: "8º B", subject: "Matemática", room: "Sala 12" },
@@ -13,7 +17,7 @@ export default function TeacherHome() {
         <ScrollView>
             <View className="p-4 pb-20">
                 <View className="mb-6">
-                    <Text className="text-2xl font-bold text-gray-800">Olá, Prof. João!</Text>
+                    <Text className="text-2xl font-bold text-gray-800">Olá, Prof(a). {userData?.name}!</Text>
                     <Text className="text-gray-600">Terça-feira, 12 de Março de 2024</Text>
                 </View>
 
