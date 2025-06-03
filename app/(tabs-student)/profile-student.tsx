@@ -1,6 +1,10 @@
+import useUserInfo from "@/hooks/useUserInfo";
 import { Text, TouchableOpacity, View } from "react-native";
 
 export default function Profile() {
+
+    const { userData } = useUserInfo()
+
     return (
         <View className="p-4 pb-20">
             <View className="mb-6">
@@ -14,8 +18,8 @@ export default function Profile() {
                             MS
                         </Text>
                     </View>
-                    <Text className="text-xl font-bold text-center text-gray-800">Maria Silva Santos</Text>
-                    <Text className="text-gray-600 text-center">Aluna</Text>
+                    <Text className="text-xl font-bold text-center text-gray-800">{userData?.name}</Text>
+                    <Text className="text-gray-600 text-center">Aluno</Text>
                 </View>
 
                 <View className="space-y-4">
@@ -28,8 +32,8 @@ export default function Profile() {
                         <Text className="font-semibold">2024001</Text>
                     </View>
                     <View className="flex flex-row justify-between">
-                        <Text className="text-gray-600">Email:</Text>
-                        <Text className="font-semibold">maria.santos@email.com</Text>
+                        <Text className="text-gray-600">Telefone:</Text>
+                        <Text className="font-semibold">{userData?.phone}</Text>
                     </View>
                 </View>
 
