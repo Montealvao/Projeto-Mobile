@@ -1,4 +1,4 @@
-import { Foundation, MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons'
+import { AntDesign, Foundation, Ionicons, MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons'
 import { Tabs } from 'expo-router'
 import { View } from 'react-native'
 
@@ -13,7 +13,7 @@ export default function RootLayout() {
             },
         }}>
             <Tabs.Screen
-                name='home'
+                name='home-parent'
                 options={{
                     title: 'Início',
                     tabBarIcon: ({ color }) => (
@@ -25,43 +25,55 @@ export default function RootLayout() {
             />,
 
             <Tabs.Screen
-                name='subjects'
+                name='grades-parent'
                 options={{
-                    title: 'Matérias',
+                    title: 'Notas',
                     tabBarIcon: ({ color }) => (
                         <View className='flex-1 justify-center items-center'>
-                            <MaterialCommunityIcons name="bookshelf" size={24} color="black" />
-                        </View>
-                    ),
-                }}
-            />,
-           
-            <Tabs.Screen
-                name='chat'
-                options={{
-                    title: 'Chat',
-                    tabBarIcon: ({ color }) => (
-                        <View className='flex-1 justify-center items-center'>
-                            <MaterialCommunityIcons name="comment-processing-outline" size={24} color="black" />
-                        </View>
-                    ),
-                }}
-            />,
-            
-            <Tabs.Screen
-                name='announcements'
-                options={{
-                    title: 'Avisos',
-                    tabBarIcon: ({ color }) => (
-                        <View className='flex-1 justify-center items-center'>
-                            <Foundation name="megaphone" size={24} color="black" />
+                            <AntDesign name="barschart" size={24} color={color} />
                         </View>
                     ),
                 }}
             />,
 
             <Tabs.Screen
-                name='profile'
+                name='schedule'
+                options={{
+                    title: 'Horários',
+                    tabBarIcon: ({ color }) => (
+                        <View className='flex-1 justify-center items-center'>
+                            <Ionicons name="calendar-number-outline" size={24} color={color} />
+                        </View>
+                    ),
+                }}
+            />,
+
+            <Tabs.Screen
+                name='chat-parent'
+                options={{
+                    title: 'Chat',
+                    tabBarIcon: ({ color }) => (
+                        <View className='flex-1 justify-center items-center'>
+                            <MaterialCommunityIcons name="comment-processing-outline" size={24} color={color} />
+                        </View>
+                    ),
+                }}
+            />,
+
+            <Tabs.Screen
+                name='announcements-parent'
+                options={{
+                    title: 'Avisos',
+                    tabBarIcon: ({ color }) => (
+                        <View className='flex-1 justify-center items-center'>
+                            <Foundation name="megaphone" size={24} color={color} />
+                        </View>
+                    ),
+                }}
+            />,
+
+            <Tabs.Screen
+                name='profile-parent'
                 options={{
                     title: 'Perfil',
                     tabBarIcon: ({ color }) => (

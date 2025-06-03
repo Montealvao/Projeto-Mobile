@@ -13,7 +13,7 @@ export default function RootLayout() {
             },
         }}>
             <Tabs.Screen
-                name='home2'
+                name='home-student'
                 options={{
                     title: 'Início',
                     tabBarIcon: ({ color }) => (
@@ -25,43 +25,43 @@ export default function RootLayout() {
             />,
 
             <Tabs.Screen
-                name='class'
+                name='subjects'
                 options={{
-                    title: 'Turmas',
+                    title: 'Matérias',
                     tabBarIcon: ({ color }) => (
                         <View className='flex-1 justify-center items-center'>
-                            <MaterialCommunityIcons name="bookshelf" size={24} color="black" />
+                            <MaterialCommunityIcons name="bookshelf" size={24} color={color} />
                         </View>
                     ),
                 }}
             />,
            
             <Tabs.Screen
-                name='chat2'
+                name='chat-student'
                 options={{
                     title: 'Chat',
                     tabBarIcon: ({ color }) => (
                         <View className='flex-1 justify-center items-center'>
-                            <MaterialCommunityIcons name="comment-processing-outline" size={24} color="black" />
+                            <MaterialCommunityIcons name="comment-processing-outline" size={24} color={color} />
                         </View>
                     ),
                 }}
             />,
             
             <Tabs.Screen
-                name='announcements2'
+                name='announcements-student'
                 options={{
                     title: 'Avisos',
                     tabBarIcon: ({ color }) => (
                         <View className='flex-1 justify-center items-center'>
-                            <Foundation name="megaphone" size={24} color="black" />
+                            <Foundation name="megaphone" size={24} color={color} />
                         </View>
                     ),
                 }}
             />,
 
             <Tabs.Screen
-                name='profile2'
+                name='profile-student'
                 options={{
                     title: 'Perfil',
                     tabBarIcon: ({ color }) => (

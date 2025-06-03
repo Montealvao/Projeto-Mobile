@@ -1,33 +1,109 @@
-import { AntDesign, Feather, MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons"
-import { ScrollView, Text, View } from "react-native"
+import { db } from "../../firebase.config";
+import useUserInfo from "@/hooks/useUserInfo";
+import {
+    AntDesign,
+    Feather,
+    MaterialCommunityIcons,
+    MaterialIcons,
+} from "@expo/vector-icons";
+import { collection, doc, getDoc, getDocs, query, where } from "firebase/firestore";
+import { useEffect, useState } from "react";
+import { ScrollView, Text, View } from "react-native";
 
 export default function ParentHome() {
+    const { userData } = useUserInfo()
+    const [studentData, setStudentData] = useState<any>(null);
+
+    console.log("User Data: ", userData);
+
+
+
+    useEffect(() => {
+        async function getDataStudent() {
+            if (!userData) return;
+            const studentRef = query(collection(db, "students"), where("id_parent", "==", userData.id_parent));
+            const studentSnapshot = await getDocs(studentRef);
+            if (studentSnapshot.empty) {
+                console.log("No students found for this parent.");
+                return;
+            }
+            const studentDataId = studentSnapshot.docs[0].id
+            console.log("Student Data: ", studentDataId);
+
+            const studentDoc = query(collection(db, "users"), where("id_student", "==", studentDataId));
+            const studentDocSnapshot = await getDocs(studentDoc);
+            if (studentDocSnapshot.empty) {
+                console.log("No user data found for the student.");
+                return;
+            }
+            const userStudentDataId = studentDocSnapshot.docs[0].id;
+            console.log("User Student Data ID: ", userStudentDataId);
+
+            const userStudent = doc(db, "users", userStudentDataId);
+            const userStudentSnapshot = await getDoc(userStudent);
+            if (!userStudentSnapshot.exists()) {
+                console.log("No user data found for the student.");
+                return;
+            }
+            const userStudentData = userStudentSnapshot.data();
+            console.log("User Student Data: ", userStudentData);
+            setStudentData(userStudentData);
+
+            const classroomId = userStudentData.id_classroom;
+
+        }
+        getDataStudent();
+        console.log("Student Data: ", studentData);
+    }, [userData]);
+
+
 
     const studentInfo = {
         name: "Maria Silva Santos",
         class: "9º Ano B",
         overallGrade: 8.7,
         attendance: 95,
-    }
+    };
 
     const recentActivities = [
-        { subject: "Matemática", type: "Prova", grade: 8.5, date: "15/03", status: "graded" },
-        { subject: "Português", type: "Trabalho", grade: null, date: "18/03", status: "pending" },
-        { subject: "História", type: "Seminário", grade: 9.0, date: "12/03", status: "graded" },
-    ]
+        {
+            subject: "Matemática",
+            type: "Prova",
+            grade: 8.5,
+            date: "15/03",
+            status: "graded",
+        },
+        {
+            subject: "Português",
+            type: "Trabalho",
+            grade: null,
+            date: "18/03",
+            status: "pending",
+        },
+        {
+            subject: "História",
+            type: "Seminário",
+            grade: 9.0,
+            date: "12/03",
+            status: "graded",
+        },
+    ];
 
     const upcomingEvents = [
         { title: "Prova de Ciências", date: "20/03", time: "14:00" },
         { title: "Reunião de Pais", date: "25/03", time: "19:00" },
-    ]
+    ];
 
     return (
         <ScrollView>
-
             <View className="p-4 pb-20">
                 <View className="mb-6">
-                    <Text className="text-2xl font-bold text-gray-800">Olá, Sr. Carlos!</Text>
-                    <Text className="text-gray-600 text-lg">Acompanhe o progresso da {studentInfo.name}</Text>
+                    <Text className="text-2xl font-bold text-gray-800">
+                        Olá, Sr(a). {userData?.name}!
+                    </Text>
+                    <Text className="text-gray-600 text-lg">
+                        Acompanhe o progresso do(a) {studentData?.name}
+                    </Text>
                 </View>
 
                 {/* Card do Aluno */}
@@ -38,16 +114,22 @@ export default function ParentHome() {
                                 <MaterialIcons name="person" size={24} color="white" />
                             </View>
                             <View className="flex-1">
-                                <Text className="font-bold text-lg">{studentInfo.name}</Text>
-                                <Text className="text-gray-600 text-base">{studentInfo.class}</Text>
+                                <Text className="font-bold text-lg">{studentData?.name}</Text>
+                                <Text className="text-gray-600 text-base">
+                                    {studentInfo.class}
+                                </Text>
                                 <View className="flex flex-row items-center space-x-4 mt-2">
                                     <View className="flex flex-row gap-2 items-center">
                                         <AntDesign name="staro" size={24} color="orange" />
-                                        <Text className="font-medium">{studentInfo.overallGrade}</Text>
+                                        <Text className="font-medium">
+                                            {studentInfo.overallGrade}
+                                        </Text>
                                     </View>
                                     <View className="flex flex-row gap-2 items-center">
                                         <Feather name="check-circle" size={24} color="green" />
-                                        <Text className="font-medium">{studentInfo.attendance}% presença</Text>
+                                        <Text className="font-medium">
+                                            {studentInfo.attendance}% presença
+                                        </Text>
                                     </View>
                                 </View>
                             </View>
@@ -87,13 +169,20 @@ export default function ParentHome() {
                 <View className="mb-6 bg-white p-6 rounded-md border border-gray-300 space-y-6">
                     <View>
                         <View className="text-lg font-semibold flex flex-row gap-4 items-center">
-                            <MaterialCommunityIcons name="clipboard-check-outline" size={24} color="black" />
+                            <MaterialCommunityIcons
+                                name="clipboard-check-outline"
+                                size={24}
+                                color="black"
+                            />
                             Atividades Recentes
                         </View>
                     </View>
                     <View className="space-y-3">
                         {recentActivities.map((activity, index) => (
-                            <View key={index} className="flex flex-row items-center justify-between p-3 bg-gray-50 rounded-lg">
+                            <View
+                                key={index}
+                                className="flex flex-row items-center justify-between p-3 bg-gray-50 rounded-lg"
+                            >
                                 <View>
                                     <View className="font-semibold">{activity.subject}</View>
                                     <View className="text-sm text-gray-600">
@@ -102,7 +191,9 @@ export default function ParentHome() {
                                 </View>
                                 <View className="text-right">
                                     {activity.grade ? (
-                                        <View className="text-lg font-bold text-blue-600">{activity.grade}</View>
+                                        <View className="text-lg font-bold text-blue-600">
+                                            {activity.grade}
+                                        </View>
                                     ) : (
                                         <View>
                                             <Text>Pendente</Text>
@@ -124,7 +215,10 @@ export default function ParentHome() {
                     </View>
                     <View className="space-y-3">
                         {upcomingEvents.map((event, index) => (
-                            <View key={index} className="flex flex-row items-center justify-between p-3 bg-yellow-50 rounded-lg">
+                            <View
+                                key={index}
+                                className="flex flex-row items-center justify-between p-3 bg-yellow-50 rounded-lg"
+                            >
                                 <View>
                                     <View className="font-semibold">{event.title}</View>
                                     <View className="text-sm text-gray-600">
@@ -138,5 +232,5 @@ export default function ParentHome() {
                 </View>
             </View>
         </ScrollView>
-    )
+    );
 }
