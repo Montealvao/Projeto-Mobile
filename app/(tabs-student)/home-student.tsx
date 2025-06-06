@@ -1,8 +1,8 @@
-import useSchool from "@/hooks/useUserInfo";
+import { useUserInfo } from "@/hooks/useUserInfo";
 import { ScrollView, Text, View } from "react-native";
 
 export default function Home() {
-    const { userData } = useSchool()
+  const { userData } = useUserInfo();
 
     return (
         <View className="flex-1 p-4 gap-6 bg-white">

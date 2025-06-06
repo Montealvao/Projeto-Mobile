@@ -3,7 +3,7 @@ import { db } from "../firebase.config"
 import { doc, getDoc } from "firebase/firestore";
 import { useEffect, useState } from "react";
 
-export default function useUserInfo() {
+export function useUserInfo() {
     const [userData, setUserData] = useState<any>(null);
 
     useEffect(() => {

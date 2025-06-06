@@ -1,5 +1,5 @@
+import { useUserInfo } from "@/hooks/useUserInfo";
 import { db } from "../../firebase.config";
-import useUserInfo from "@/hooks/useUserInfo";
 import {
     AntDesign,
     Feather,
@@ -15,8 +15,6 @@ export default function ParentHome() {
     const [studentData, setStudentData] = useState<any>(null);
 
     console.log("User Data: ", userData);
-
-
 
     useEffect(() => {
         async function getDataStudent() {
@@ -48,8 +46,6 @@ export default function ParentHome() {
             const userStudentData = userStudentSnapshot.data();
             console.log("User Student Data: ", userStudentData);
             setStudentData(userStudentData);
-
-            const classroomId = userStudentData.id_classroom;
 
         }
         getDataStudent();

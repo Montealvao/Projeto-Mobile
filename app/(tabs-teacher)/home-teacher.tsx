@@ -1,10 +1,10 @@
-import useSchool from "@/hooks/useUserInfo"
+import { useUserInfo } from "@/hooks/useUserInfo"
 import { AntDesign, Feather, MaterialCommunityIcons } from "@expo/vector-icons"
 import { ScrollView, Text, TouchableOpacity, View } from "react-native"
 
 export default function TeacherHome() {
 
-    const { userData } = useSchool()
+    const { userData } = useUserInfo()
 
     const todaySchedule = [
         { time: "07:30", class: "9º A", subject: "Matemática", room: "Sala 15" },
