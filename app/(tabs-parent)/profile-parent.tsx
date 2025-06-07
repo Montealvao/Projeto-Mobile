@@ -1,6 +1,14 @@
+import { useUserInfo } from "@/hooks/useUserInfo";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Text, TextInput, TouchableOpacity, View } from "react-native";
 
 export default function ParentProfile() {
+    const { userData } = useUserInfo();
+    
+    function handleLogout() {
+        AsyncStorage.removeItem("token")
+    }
+
     return (
         <View className="p-4 pb-20">
             <View className="mb-6">
@@ -14,7 +22,7 @@ export default function ParentProfile() {
                             MS
                         </Text>
                     </View>
-                    <Text className="text-xl font-bold text-center text-gray-800">Carlos Santos</Text>
+                    <Text className="text-xl font-bold text-center text-gray-800">{userData?.name}</Text>
                     <Text className="text-gray-600 text-center text-base">Responsável</Text>
                 </View>
 
@@ -24,12 +32,8 @@ export default function ParentProfile() {
                         <Text className="text-base">Pai da Maria</Text>
                     </View>
                     <View className="flex flex-row justify-between">
-                        <Text className="text-gray-600 text-base">ID:</Text>
-                        <Text className="text-base">RESP001</Text>
-                    </View>
-                    <View className="flex flex-row justify-between">
-                        <Text className="text-gray-600 text-base">Email:</Text>
-                        <Text className="text-base">carlos.santos@email.com</Text>
+                        <Text className="text-gray-600 text-base">Telefone:</Text>
+                        <Text className="text-base">{userData?.phone}</Text>
                     </View>
                 </View>
 
@@ -45,7 +49,7 @@ export default function ParentProfile() {
                 <TouchableOpacity className="w-full justify-start  bg-white p-2 rounded-md border border-gray-300">
                     Configurações
                 </TouchableOpacity>
-                <TouchableOpacity className="w-full justify-start text-white bg-red-500 p-2 rounded-md border border-gray-200">
+                <TouchableOpacity className="w-full justify-start text-white bg-red-500 p-2 rounded-md border border-gray-200" onPress={handleLogout}>
                     Sair
                 </TouchableOpacity>
             </View>
