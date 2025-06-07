@@ -13,6 +13,7 @@ import { ScrollView, Text, View } from "react-native";
 export default function ParentHome() {
     const { userData } = useUserInfo()
     const [studentData, setStudentData] = useState<any>(null);
+    const [classroomData, setClassroomData] = useState<any>(null)
 
     console.log("User Data: ", userData);
 
@@ -47,6 +48,15 @@ export default function ParentHome() {
             console.log("User Student Data: ", userStudentData);
             setStudentData(userStudentData);
 
+            const classroomsRef = query(collection(db, "classrooms"));
+            const classroomsSnapshot = await getDocs(classroomsRef);
+            const classroomData = classroomsSnapshot.docs.map(doc => doc.id)
+            console.log("Classroom Data: ", classroomData);
+
+            const classroomRef = doc(db, "classrooms", studentSnapshot.docs[0].data().id_classroom);
+            const classroomSnapshot = await getDoc(classroomRef);
+            setClassroomData(classroomSnapshot.data())
+            
         }
         getDataStudent();
         console.log("Student Data: ", studentData);
@@ -112,7 +122,7 @@ export default function ParentHome() {
                             <View className="flex-1">
                                 <Text className="font-bold text-lg">{studentData?.name}</Text>
                                 <Text className="text-gray-600 text-base">
-                                    {studentInfo.class}
+                                    {classroomData?.name}
                                 </Text>
                                 <View className="flex flex-row items-center space-x-4 mt-2">
                                     <View className="flex flex-row gap-2 items-center">

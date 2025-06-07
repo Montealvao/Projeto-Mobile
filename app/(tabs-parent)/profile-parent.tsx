@@ -1,9 +1,14 @@
 import { useUserInfo } from "@/hooks/useUserInfo";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Text, TextInput, TouchableOpacity, View } from "react-native";
 
 export default function ParentProfile() {
     const { userData } = useUserInfo();
     
+    function handleLogout() {
+        AsyncStorage.removeItem("token")
+    }
+
     return (
         <View className="p-4 pb-20">
             <View className="mb-6">
@@ -44,7 +49,7 @@ export default function ParentProfile() {
                 <TouchableOpacity className="w-full justify-start  bg-white p-2 rounded-md border border-gray-300">
                     Configurações
                 </TouchableOpacity>
-                <TouchableOpacity className="w-full justify-start text-white bg-red-500 p-2 rounded-md border border-gray-200">
+                <TouchableOpacity className="w-full justify-start text-white bg-red-500 p-2 rounded-md border border-gray-200" onPress={handleLogout}>
                     Sair
                 </TouchableOpacity>
             </View>
